@@ -1,103 +1,77 @@
-import Image from "next/image";
+/* Next.js login page using Hero UI, AOS, and Lenis */
 
-export default function Home() {
+'use client';
+
+import { useEffect } from 'react';
+import { Card, CardContent } from '../ui/card';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import Lenis from '@studio-freight/lenis';
+import RevokeAccessDialog from '@/ui/alert';
+
+export default function LoginPage() {
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-white flex flex-col md:flex-row items-center justify-between p-8">
+      {/* Left section with promo text and image */}
+      <div
+        className="md:w-1/2 text-center md:text-left space-y-6"
+        data-aos="fade-right"
+      >
+        <h1 className="text-4xl font-bold text-gray-900">
+          Get your fashion done with <span className="text-blue-600">Elax</span>
+        </h1>
+        <p className="text-gray-600 max-w-md">
+          We provide you the best quality of clothes from around the world that suit the most recent trends.
+        </p>
+        <Button className="bg-black text-white hover:bg-gray-800 rounded-xl px-6 py-2">
+          Shop now
+        </Button>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      {/* Right section with login card */}
+      <div
+        className="md:w-1/2 max-w-md w-full mt-10 md:mt-0"
+        data-aos="fade-left"
+      >
+        <Card className="shadow-lg">
+          <CardContent className="p-6 space-y-4">
+            <h2 className="text-xl font-semibold text-gray-800">Login</h2>
+            <Input placeholder="No. Handphone/Username/Email" type="text" />
+            <Input placeholder="Password" type="password" />
+            <div className="text-right">
+              <a href="#" className="text-sm text-blue-600 hover:underline">
+                Lupa Password?
+              </a>
+            </div>
+            <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">
+              Login
+            </Button>
+            <div className="text-center text-gray-500 text-sm">ATAU</div>
+            <div className="flex justify-between gap-4">
+              <Button variant="outline" className="w-full">
+                Facebook
+              </Button>
+              <Button variant="outline" className="w-full">
+                Google
+              </Button>
+            </div>
+            <p className="text-sm text-center text-gray-600">
+              Baru di Elax? <a href="#" className="text-blue-600 hover:underline">Daftar</a>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
